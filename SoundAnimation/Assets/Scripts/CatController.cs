@@ -6,44 +6,54 @@ public class CatController : MonoBehaviour
 {
     public AudioClip musicClipOne;
 
-public AudioClip musicClipTwo;
+    public AudioClip musicClipTwo;
 
-public AudioSource musicSource;
+    public AudioSource musicSource;
 
-// Update is called once per frame
-void Update()
-{
-    if (Input.GetKeyDown(KeyCode.W))
+    Animator anim;
+
+    void Start()
     {
-        musicSource.clip = musicClipOne;
-        musicSource.Play();
-
+        anim = GetComponent<Animator>();
     }
 
-    if (Input.GetKeyUp(KeyCode.W))
+    // Update is called once per frame
+    void Update()
     {
-        musicSource.Stop();
-    }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            musicSource.clip = musicClipOne;
+            musicSource.Play();
+            anim.SetInteger("State", 1);
+        }
 
-    if (Input.GetKeyDown(KeyCode.R))
-    {
-        musicSource.clip = musicClipTwo;
-        musicSource.Play();
-    }
+        if (Input.GetKeyUp(KeyCode.W))
+        {
+            musicSource.Stop();
+            anim.SetInteger("State", 0);
+        }
 
-    if (Input.GetKeyUp(KeyCode.R))
-    {
-        musicSource.Stop();
-    }
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            musicSource.clip = musicClipTwo;
+            musicSource.Play();
+            anim.SetInteger("State", 2);
+        }
 
-    if (Input.GetKeyDown(KeyCode.L))
-    {
-        musicSource.loop = true;
-    }
+        if (Input.GetKeyUp(KeyCode.R))
+        {
+            musicSource.Stop();
+            anim.SetInteger("State", 0);
+        }
 
-    if (Input.GetKeyUp(KeyCode.L))
-    {
-        musicSource.loop = false;
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            musicSource.loop = true;
+        }
+
+        if (Input.GetKeyUp(KeyCode.L))
+        {
+            musicSource.loop = false;
+        }
     }
-   }
 }
